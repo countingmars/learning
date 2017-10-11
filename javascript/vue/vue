@@ -1,0 +1,207 @@
+https://vuejs.org/v2/guide/index.html
+
+
+### What is Vue.js?
+Vue (pronounced /vjuː/, like view)는 프로그레시브 프레임웍이라고 할 수 있다,
+다른 거대한 프레임웍과는 다르게, 점진적으로 적용될 수 있도록 설계되었다.
+
+
+### Getting started
+Vue.js를 가장 쉽게 접해보고 싶다면 JSFiddle 의 Hello World 예제를 써보는 것이다.
+`https://jsfiddle.net/chrisvfritz/50wL7mdz/`
+
+혹은 index.html 파일을 만들어서 Vue를 include 해보자.
+`<script src="https://unpkg.com/vue"></script>`
+
+
+### Declarative Rendering
+Vue.js 의 핵심은 직관적인 템플릿 문법으로 선언적(declaratively) 데이터 렌더링을 가능하게 하는 것이다.
+```
+<div id="app">
+  {{ message }}
+</div>
+```
+```
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+
+위 예제는 문자열 템플릿을 렌더링하는 거소가 꽤 유사하게 보일테지만,
+Vue 는 뒤에서 상당히 많을 일을 해준다.
+
+데이터와 DOM은 연결되었고, 모든 것이 reactive(반응을 보이는 방식)이다.
+확인해보고 싶다면 브라우저의 이 가이드 페이지의 자바스크립트 콘솔을 열어서 app.message 를 다른 값으로 수정해보자!
+
+
+게다가 태그의 애트리뷰트에 데이터를 바인드할 수도 있다.
+```
+<div id="app-2">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds
+    to see my dynamically bound title!
+  </span>
+</div>
+```
+```
+var app2 = new Vue({
+  el: '#app-2',
+  data: {
+    message: 'You loaded this page on ' + new Date().toLocaleString()
+  }
+})
+```
+위 예제에서는 span 태그의 title 애트리뷰트에 message를 바인드시켰다.
+
+
+v-bind 애트리뷰트는 디렉티브(directive)라고 불린다. 디렉티브는 v- 접두사가 붙는다.
+(Vue 에 의해서 제공되는 특별한 애트리뷰트임을 나타내기 위해!)
+
+추가적으로 이렇게 바인드된 애트리뷰트는
+Vue 객체(여기서는 app2)의 message 속성의 변경사항을 즉시 반영한다(reactive 하다!).
+
+
+### Conditionals and Loops
+태그의 노출 여부를 토글하는 것 또한 쉽다.
+
+```
+<div id="app-3">
+  <span v-if="seen">Now you see me</span>
+</div>
+```
+```
+var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+  }
+})
+```
+위 예제는 v-if 를 사용해서 값이 true 일 때만 태그가 노출하도록 처리했다.
+
+이 예제는 우리가 데이터만 바인드할 수 있는 것이 아니라, DOM 구조 또한 바인드할 수 있음을 보여준다.
+더욱이, Vue 는 파워풀한 transition effect 시스템 또한 제공한다!
+
+
+몇 개의 다른 디렉티브도 있다. 예를 들어, v-for 는 목록을 노출하기 위해 사용될 수 있다:
+```
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+```
+```
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    todos: [
+      { text: 'Learn JavaScript' },
+      { text: 'Learn Vue' },
+      { text: 'Build something awesome' }
+    ]
+  }
+})
+```
+
+### Handling User Input
+사용자 입력 등을 처리하기 위해, v-on 디렉티브를 사용해서 이벤트 리스너를 정의할 수 있다:
+```
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">Reverse Message</button>
+</div>
+```
+```
+var app5 = new Vue({
+  el: '#app-5',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
+```
+
+Vue 는 또한 v-model 을 이용하여 input 태그와 Vue 객체의 상태를 two-way binding 할 수 있다:
+```
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+```
+```
+var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+
+
+### Composing with Components
+컴포넌트 시스템은 Vue 의 또 다른 중요한 개념이다.
+작고 쉽게 재사용할 수 있는 컴포넌트를 조립하여 거대한 어플리케이션을 만들기 위해 정말로 중요한 개념이라고 할 수 있다.
+
+Vue 에서, 하나의 컴포넌트는 본질적으로 미리 정의된 뷰 객체로 볼 수 있다.
+컴포넌트를 등록하는 방법은 직관적이다:
+```
+// Define a new component called todo-item
+Vue.component('todo-item', {
+  template: '<li>This is a todo</li>'
+})
+```
+이제 다른 컴포넌트에서 써보자.
+```
+<ol>
+  <!-- Create an instance of the todo-item component -->
+  <todo-item></todo-item>
+</ol>
+```
+재미없게도 모든 todo가 동일한 텍스트를 노출할거다.
+부모 Scope 에서 자식 컴포넌트에 데이터를 전달할 수 있어야만 한다.
+todo-item 컴포넌트가 커스텀 속성을 받을 수 있도록 수정해보자:
+```
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+```
+이제 todo-item 컴포넌트는 todo 속성을 가지게 됐다.
+v-bind 를 이용해서 값을 전달해보자.
+
+```
+<div id="app-7">
+  <ol>
+    <todo-item
+      v-for="item in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id">
+    </todo-item>
+  </ol>
+</div>
+```
+v-bind 를 이용해서 todo-item 컴포넌트에 item 객체를 파라미터로 전달했다. v-bind:key 는 나중에 설명하겠다.
+이제 Vue 객체는 아래와 같이 정의될 수 있다.
+
+```
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      { id: 0, text: 'Vegetables' },
+      { id: 1, text: 'Cheese' },
+      { id: 2, text: 'Whatever else humans are supposed to eat' }
+    ]
+  }
+})
+```

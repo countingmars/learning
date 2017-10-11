@@ -1,0 +1,12 @@
+https://developer.okta.com/blog/2017/07/20/the-ultimate-guide-to-progressive-web-applications
+
+
+Progressive Web Apps(이하 PWA)는 최신의 웹 표준을 사용해서 app-like 경험을 주는 웹 사이트라고 할 수 있다.
+
+
+트위터는 최근에 React + Node.js로 PWA 방식의 mobile.twitter.com을 런칭했는데,
+PWA로 거대한 서비스를 구축할만 하다는 것을 보여준 좋은 사례라고 볼 수 있겠다.
+* 데이터 사용량은 줄었는데 트웟은 75% 증가!
+
+
+

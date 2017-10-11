@@ -1,0 +1,25 @@
+https://developer.mozilla.org/en-US/docs/Web/Web_Components
+
+* 아직 모든 브라우저가 웹 컴포넌트를 지원하는 것은 아니다.
+
+### 관련된 W3C 표준
+https://www.w3.org/TR/custom-elements/#concepts
+
+
+### Web Components
+웹 컴포넌트는 Open Web Technology를 사용하는, 재사용가능한 유저 인터페이스 위젯이라고 생각할 수 있다.
+웹 컴포넌트는 HTML, CSS, 그리고 Javascript로 할 수 있는 거의 모든 것들 할 수 있는데다가, 아주 쉽게 재사용될 수 있다.
+
+
+##### 4개의 웹 컴포넌트 구성요소
+- Custom Elements
+- HTML Templates
+- Shadow DOM
+- HTML Imports
+
+
+이 모든 기술들은 개별적으로 사용되어 질 수 있다.
+
+
+
+
